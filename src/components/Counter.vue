@@ -59,14 +59,16 @@ export default {
     }
 
     const add = () => {
+      total.value++
       axios.post('https://happy-counter.herokuapp.com/Counter/Add/3')
-        .then((res) => { res.data.result.counters.count++ })
+        .then((res) => { console.log(res.data.result.counters.count) })
         .catch((error) => { console.error(error) })
     }
 
     const remove = () => {
+      total.value--
       axios.post('https://happy-counter.herokuapp.com/Counter/Subtract/3')
-        .then((res) => { res.data.result.counters.count-- })
+        .then((res) => { console.log(res.data.result.counters.count) })
         .catch((error) => { console.error(error) })
     }
 
