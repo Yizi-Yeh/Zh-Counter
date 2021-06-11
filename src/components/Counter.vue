@@ -53,19 +53,19 @@ export default {
     const total = ref(0)
 
     const init = () => {
-      axios.get('/api/GetCounter/3')
+      axios.get('https://happy-counter.herokuapp.com/Counter/GetCounter/3')
         .then((res) => { total.value = res.data.result.counters.count })
         .catch((error) => { console.error(error) })
     }
 
     const add = () => {
-      axios.post('/api/Add/3')
+      axios.post('https://happy-counter.herokuapp.com/Counter/Add/3')
         .then((res) => { res.data.result.counters.count++ })
         .catch((error) => { console.error(error) })
     }
 
     const remove = () => {
-      axios.post('/api/Subtract/3')
+      axios.post('https://happy-counter.herokuapp.com/Counter/Subtract/3')
         .then((res) => { res.data.result.counters.count-- })
         .catch((error) => { console.error(error) })
     }
@@ -78,7 +78,7 @@ export default {
 
     const handPasswordFn = () => {
       axios
-        .post('/api//Restart/3', confirm)
+        .post('https://happy-counter.herokuapp.com/Counter/Restart/3', confirm)
         .then((res) => {
           console.log(confirm)
           init()
