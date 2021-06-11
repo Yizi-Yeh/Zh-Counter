@@ -6,7 +6,7 @@
                    <h1>竹東市場人流計數器</h1>
                    <h1 class="number">{{total}}</h1>
                    <div class="box">
-                    <el-button class="btn-text" @click="add" type="info">增加</el-button>
+                    <el-button class="btn-text" @click="add" type="danger">增加</el-button>
                      <el-button @click="remove" type="info">減少</el-button>
                      <!-- <el-button @click="dialogVisible = true" type="danger">歸零</el-button> -->
                   <el-dialog
@@ -23,8 +23,8 @@
                    <el-input  v-model="confirm.password"  type="password" placeholder="請輸入密碼"></el-input>
                   <template #footer>
                   <span class="dialog-footer">
-                   <el-button type="danger" @click="dialogVisible = false">取消</el-button>
-                 <el-button type="info" @click="handPasswordFn">確定</el-button>
+                   <el-button class="btn" type="danger" @click="dialogVisible = false">取消</el-button>
+                 <el-button class="btn"  type="info" @click="handPasswordFn">確定</el-button>
                  </span>
                  </template>
               </el-dialog>
@@ -122,6 +122,10 @@ body {
   flex-direction: column;
 }
 
+.btn{
+  width: 200px;
+}
+
 .number {
   font-size: 100px;
   color: #2c3e50;
@@ -129,6 +133,15 @@ body {
   line-height: 1.75em;
   text-align: center;
   user-select: none;
+}
+
+.el-button {
+    min-height: 40px;
+    padding: 15px 30px;
+    font-size: 25px;
+    border-radius: 4px;
+    margin-left: 5px;
+    margin-right: 20px;
 }
 
 span{
