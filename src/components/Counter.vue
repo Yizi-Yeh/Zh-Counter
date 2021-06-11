@@ -47,7 +47,7 @@ export default {
     onMounted(() => {
       setInterval(() => {
         init()
-      }, 800)
+      }, 2000)
     })
 
     const total = ref(0)
