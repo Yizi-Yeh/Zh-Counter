@@ -37,7 +37,7 @@
                 </el-col>
             </el-row>
 
-            <el-footer class="footer">
+            <el-footer class="footer" v-show="isLoad">
               <h4>Copyright 2021 all rights reserved</h4>
             </el-footer>
     </div>
