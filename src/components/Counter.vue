@@ -62,7 +62,7 @@ export default {
     const limit = ref(0)
 
     const init = () => {
-      axios.get('https://happy-counter.herokuapp.com/Counter/GetCounter/3')
+      axios.get('/api/GetCounter/3')
         .then((res) => {
           isLoad.value = true
           limit.value = res.data.result.counters.limit
@@ -75,7 +75,7 @@ export default {
       if (total.value < limit.value) {
         total.value++
       }
-      axios.post('https://happy-counter.herokuapp.com/Counter/Add/3')
+      axios.post('/api/Add/3')
         .then((res) => {
           if (total.value < limit.value) {
             Swal.fire({
@@ -104,7 +104,7 @@ export default {
 
     const remove = () => {
       total.value--
-      axios.post('https://happy-counter.herokuapp.com/Counter/Subtract/3')
+      axios.post('/api/Subtract/3')
         .then((res) => {
           Swal.fire({
             toast: true,
@@ -125,7 +125,7 @@ export default {
 
     const handPasswordFn = () => {
       axios
-        .post('https://happy-counter.herokuapp.com/Counter/Restart/3', confirm)
+        .post('/api/Restart/3', confirm)
         .then((res) => {
           console.log(confirm)
           init()
