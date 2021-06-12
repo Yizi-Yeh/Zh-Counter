@@ -45,6 +45,7 @@
 
 <script>
 import { onMounted, ref, reactive } from 'vue'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 import axios from 'axios'
 export default {
   name: 'Counter',
@@ -71,16 +72,49 @@ export default {
     }
 
     const add = () => {
-      total.value++
+      if (total.value < limit.value) {
+        total.value++
+      }
       axios.post('https://happy-counter.herokuapp.com/Counter/Add/3')
-        .then((res) => { console.log(res.data.result.counters.count) })
-        .catch((error) => { console.error(error) })
+        .then((res) => {
+          if (total.value < limit.value) {
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              icon: 'success',
+              title: '增加成功'
+            })
+          } else {
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              icon: 'error',
+              title: '超過限制'
+            })
+          }
+        })
+        .catch(() => {
+
+        })
     }
 
     const remove = () => {
       total.value--
       axios.post('https://happy-counter.herokuapp.com/Counter/Subtract/3')
-        .then((res) => { console.log(res.data.result.counters.count) })
+        .then((res) => {
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1000,
+            icon: 'success',
+            title: '減少成功'
+          })
+        })
         .catch((error) => { console.error(error) })
     }
 
