@@ -1,1 +1,3 @@
-Zh-Counter
+- api
+  - Add: https://happy-counter.herokuapp.com/Counter/Add/
+  - Remove: https://happy-counter.herokuapp.com/Counter/Subtract/
