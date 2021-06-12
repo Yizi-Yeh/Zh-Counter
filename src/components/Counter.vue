@@ -7,7 +7,7 @@
                   <div class="container">
                     <h1>竹東市場人流計數器</h1>
                     <h2 class="limit">限制人數：{{limit}} 人</h2>
-                     <el-button @click="dialogVisible = true" type="warning">歸零</el-button>
+                     <!-- <el-button @click="dialogVisible = true" type="warning">歸零</el-button> -->
                     <h1 class="number">{{total}}</h1>
                     <div class="box">
                     <el-button class="btn-text" @click="add" type="danger">增加</el-button>
