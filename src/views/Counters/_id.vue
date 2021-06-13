@@ -5,10 +5,11 @@
                 <el-col :xl="{span: 12, offset: 6}" :lg="{span: 12, offset: 6}" :md="{span: 16, offset: 4}" :sm="{span: 20, offset: 2}" :xs="24">
 
                   <div class="container">
-                    <h1>竹東市場人流計數器</h1>
-                    <h2 class="limit">限制人數：{{limit}} 人</h2>
+                    <h1>名稱：{{ PageDetail.data.name }}</h1>
+                    <h3>描述：{{ PageDetail.data.description }}</h3>
+                    <h2 class="limit">限制人數：{{ PageDetail.data.limit }} 人</h2>
                      <!-- <el-button @click="dialogVisible = true" type="warning">歸零</el-button> -->
-                    <h1 class="number">{{total}}</h1>
+                    <h1 class="number">{{ PageDetail.data.count }}</h1>
                     <div class="box">
                     <el-button class="btn-text" @click="add" type="danger">增加</el-button>
                       <el-button @click="remove" type="info">減少</el-button>
@@ -21,7 +22,7 @@
                   <br>
                   <br>
                   <br>
-                    <!-- <el-input v-model="confirm.id" placeholder="請輸入id"></el-input> -->
+                    <el-input v-model="confirm.id" placeholder="請輸入id"></el-input>
                     <br>
                     <br>
                     <el-input  v-model="confirm.password"  type="password" placeholder="請輸入密碼"></el-input>
@@ -47,9 +48,12 @@
 import { onMounted, ref, reactive } from 'vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import axios from 'axios'
+import { useRoute } from 'vue-router'
 export default {
   name: 'Counter',
   setup () {
+    const route = useRoute()
+
     onMounted(() => {
       init()
       setInterval(() => {
@@ -58,26 +62,23 @@ export default {
     })
 
     const isLoad = ref(false)
-    const total = ref(0)
-    const limit = ref(0)
-
+    const PageDetail = reactive({ data: {} })
     const init = () => {
-      axios.get('/api/GetCounter/3')
+      axios.get(`/api/GetCounter/${route.params.id}`)
         .then((res) => {
           isLoad.value = true
-          limit.value = res.data.result.counters.limit
-          total.value = res.data.result.counters.count
+          PageDetail.data = res.data.result.counters
         })
         .catch((error) => { console.error(error) })
     }
 
     const add = () => {
-      if (total.value < limit.value) {
-        total.value++
+      if (PageDetail.data.count < PageDetail.data.limit) {
+        PageDetail.data.counter++
       }
-      axios.post('/api/Add/3')
+      axios.post(`/api/Add/${route.params.id}`)
         .then((res) => {
-          if (total.value < limit.value) {
+          if (PageDetail.data.count < PageDetail.data.limit) {
             Swal.fire({
               toast: true,
               position: 'top-end',
@@ -103,8 +104,8 @@ export default {
     }
 
     const remove = () => {
-      total.value--
-      axios.post('/api/Subtract/3')
+      PageDetail.data.count--
+      axios.post(`/api/Subtract/${route.params.id}`)
         .then((res) => {
           Swal.fire({
             toast: true,
@@ -125,7 +126,7 @@ export default {
 
     const handPasswordFn = () => {
       axios
-        .post('/api/Restart/3', confirm)
+        .post(`/api/Restart/${route.params.id}`, confirm)
         .then((res) => {
           console.log(confirm)
           init()
@@ -139,8 +140,7 @@ export default {
 
     return {
       isLoad,
-      limit,
-      total,
+      PageDetail,
       add,
       remove,
       dialogVisible,
