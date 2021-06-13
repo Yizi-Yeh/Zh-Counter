@@ -43,11 +43,15 @@
 
 <script>
 import { ref, reactive, getCurrentInstance } from 'vue'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 import axios from 'axios'
 import qs from 'qs'
+import { useRouter } from 'vue-router'
 export default ({
   setup () {
     const { ctx } = getCurrentInstance()
+
+    const router = useRouter()
 
     const ruleForm = reactive({
       Name: '',
@@ -117,10 +121,27 @@ export default ({
         headers: { 'content-type': 'application/x-www-form-urlencoded' }
       })
         .then(res => {
-          console.log(res.data)
+          if (res.data.status) {
+            Swal.fire({
+              icon: 'success',
+              title: '新增成功',
+              text: '將進入房間開始您的計數器功能'
+            })
+            router.push(`/counters/${res.data.result.counters.id}`)
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: '新增失敗',
+              text: res.data.error_msg
+            })
+          }
         })
         .catch(err => {
-          console.error(err.data.error_msg)
+          Swal.fire({
+            icon: 'error',
+            title: '新增失敗',
+            text: err.response.data.message
+          })
         })
     }
 
