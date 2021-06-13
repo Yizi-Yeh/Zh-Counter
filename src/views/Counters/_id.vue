@@ -195,7 +195,8 @@ export default {
               if (res.data.status) {
                 Swal.fire({
                   icon: 'success',
-                  title: '成功'
+                  title: '成功',
+                  text: '數量即將歸零'
                 })
                 init()
               } else {
