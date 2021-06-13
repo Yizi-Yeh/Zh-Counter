@@ -171,8 +171,9 @@ export default ({
     line-height: 30px;
   }
 
-  body > .el-container {
+ .el-container {
     margin-bottom: 40px;
+    height:90vh;
   }
 
 </style>

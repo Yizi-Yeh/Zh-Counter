@@ -1,47 +1,43 @@
 <template>
-  <div>
+  <el-container>
+    <el-main>
       <img v-show="!isLoad" class="load" src="@/assets/load.gif" alt="" />
             <el-row v-show="isLoad">
                 <el-col :xl="{span: 12, offset: 6}" :lg="{span: 12, offset: 6}" :md="{span: 16, offset: 4}" :sm="{span: 20, offset: 2}" :xs="24">
-
-                  <div class="container">
                     <h1>名稱：{{ PageDetail.data.name }}</h1>
-                    <h3>描述：{{ PageDetail.data.description }}</h3>
-                    <h2 class="limit">限制人數：{{ PageDetail.data.limit }} 人</h2>
-                     <!-- <el-button @click="dialogVisible = true" type="warning">歸零</el-button> -->
-                    <h1 class="number">{{ PageDetail.data.count }}</h1>
-                    <div class="box">
+                       <h3>描述：{{ PageDetail.data.description }}</h3>
+                </el-col>
+
+       <el-col :xl="{span: 12, offset: 6}" :lg="{span: 12, offset: 6}" :md="{span: 16, offset: 4}" :sm="{span: 20, offset: 2}" :xs="24">
+
+           <h2 class="limit">限制人數：{{ PageDetail.data.limit }} 人</h2>
+    </el-col>
+
+    <el-col :xl="{span: 12, offset: 6}" :lg="{span: 12, offset: 6}" :md="{span: 16, offset: 4}" :sm="{span: 20, offset: 2}" :xs="24">
+      <h1 class="number">{{ PageDetail.data.count }}</h1>
+    </el-col>
+
+    <el-col :xl="{span: 12, offset: 6}" :lg="{span: 12, offset: 6}" :md="{span: 16, offset: 4}" :sm="{span: 20, offset: 2}" :xs="24">
+       <div class="box">
                     <el-button class="btn-text" @click="add" type="danger">增加</el-button>
                       <el-button @click="remove" type="info">減少</el-button>
 
-                  <el-dialog
-                  v-model="dialogVisible"
-                  width="80%"
-                  >
-                  <br>
-                  <br>
-                  <br>
-                  <br>
-                    <el-input v-model="confirm.id" placeholder="請輸入id"></el-input>
-                    <br>
-                    <br>
-                    <el-input  v-model="confirm.password"  type="password" placeholder="請輸入密碼"></el-input>
-                  <template #footer>
-                  <span class="dialog-footer">
-                    <el-button class="btn" type="danger" @click="dialogVisible = false">取消</el-button>
-                  <el-button class="btn"  type="info" @click="handPasswordFn">確定</el-button>
-                  </span>
-                  </template>
-              </el-dialog>
                     </div>
-                  </div>
-                </el-col>
+                 </el-col>
+
             </el-row>
 
+             <div class="box">
+            <el-button >歸零</el-button>
+             <el-button   @click="copyUrl()">copy link</el-button>
+            </div>
+            </el-main>
+
             <el-footer class="footer" v-show="isLoad">
+
               <h4>Copyright 2021 all rights reserved</h4>
             </el-footer>
-    </div>
+  </el-container>
 </template>
 
 <script>
@@ -56,10 +52,20 @@ export default {
 
     onMounted(() => {
       init()
+      console.log(route)
       setInterval(() => {
         init()
       }, 2000)
     })
+
+    const copyUrl = () => {
+      const oInput = document.createElement('input')
+      oInput.value = window.location.href
+      document.body.appendChild(oInput)
+      oInput.select()
+      document.execCommand('Copy')
+      oInput.remove()
+    }
 
     const isLoad = ref(false)
     const PageDetail = reactive({ data: {} })
@@ -145,13 +151,21 @@ export default {
       remove,
       dialogVisible,
       confirm,
-      handPasswordFn
+      handPasswordFn,
+      copyUrl
+
     }
   }
 }
 </script>
 
-<style scoped lang="scss">
+<style  lang="scss" scoped>
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
@@ -163,9 +177,15 @@ body {
   justify-content: center;
 }
 
-.container {
+.el-container{
+  height: 90vh;
+}
+.el-row{
+  height: 60vh;
+}
+
+.el-col{
   display: flex;
-  align-items: center;
   flex-direction: column;
 }
 
@@ -191,6 +211,10 @@ body {
     margin-right: 20px;
 }
 
+.other-btn{
+  display: flex;
+  flex-direction: column;
+}
 .footer{
   padding-top: 70px;
   padding-bottom: 50px;
