@@ -2,41 +2,63 @@
   <el-container>
     <el-main>
       <img v-show="!isLoad" class="load" src="@/assets/load.gif" alt="" />
-            <el-row v-show="isLoad">
-                <el-col :xl="{span: 12, offset: 6}" :lg="{span: 12, offset: 6}" :md="{span: 16, offset: 4}" :sm="{span: 20, offset: 2}" :xs="24">
-                    <h1>名稱：{{ PageDetail.data.name }}</h1>
-                       <h3>描述：{{ PageDetail.data.description }}</h3>
-                </el-col>
+      <el-row v-show="isLoad">
+        <el-col
+          :xl="{span: 12, offset: 6}"
+          :lg="{span: 12, offset: 6}"
+          :md="{span: 16, offset: 4}"
+          :sm="{span: 20, offset: 2}"
+          :xs="24"
+        >
+          <h1>名稱：{{ PageDetail.data.name }}</h1>
+          <h3>描述：{{ PageDetail.data.description }}</h3>
+        </el-col>
 
-       <el-col :xl="{span: 12, offset: 6}" :lg="{span: 12, offset: 6}" :md="{span: 16, offset: 4}" :sm="{span: 20, offset: 2}" :xs="24">
+        <el-col
+          :xl="{span: 12, offset: 6}"
+          :lg="{span: 12, offset: 6}"
+          :md="{span: 16, offset: 4}"
+          :sm="{span: 20, offset: 2}"
+          :xs="24"
+        >
+          <h2 class="limit">限制人數：{{ PageDetail.data.limit }} 人</h2>
+        </el-col>
 
-           <h2 class="limit">限制人數：{{ PageDetail.data.limit }} 人</h2>
-    </el-col>
+        <el-col
+          :xl="{span: 12, offset: 6}"
+          :lg="{span: 12, offset: 6}"
+          :md="{span: 16, offset: 4}"
+          :sm="{span: 20, offset: 2}"
+          :xs="24"
+        >
+          <h1 class="number">{{ PageDetail.data.count }}</h1>
+        </el-col>
 
-    <el-col :xl="{span: 12, offset: 6}" :lg="{span: 12, offset: 6}" :md="{span: 16, offset: 4}" :sm="{span: 20, offset: 2}" :xs="24">
-      <h1 class="number">{{ PageDetail.data.count }}</h1>
-    </el-col>
+        <el-col
+          :xl="{span: 12, offset: 6}"
+          :lg="{span: 12, offset: 6}"
+          :md="{span: 16, offset: 4}"
+          :sm="{span: 20, offset: 2}"
+          :xs="24"
+        >
+          <div class="box">
+            <el-button class="btn-text" @click="add" type="danger"
+              >增加</el-button
+            >
+            <el-button @click="remove" type="info">減少</el-button>
+          </div>
+        </el-col>
+      </el-row>
 
-    <el-col :xl="{span: 12, offset: 6}" :lg="{span: 12, offset: 6}" :md="{span: 16, offset: 4}" :sm="{span: 20, offset: 2}" :xs="24">
-       <div class="box">
-                    <el-button class="btn-text" @click="add" type="danger">增加</el-button>
-                      <el-button @click="remove" type="info">減少</el-button>
+      <div v-show="isLoad" class="box">
+        <el-button @click="handPasswordFn">歸零</el-button>
+        <el-button @click="copyUrl()">複製網址</el-button>
+      </div>
+    </el-main>
 
-                    </div>
-                 </el-col>
-
-            </el-row>
-
-            <div v-show="isLoad" class="box">
-            <el-button @click="handPasswordFn">歸零</el-button>
-             <el-button @click="copyUrl()">複製網址</el-button>
-            </div>
-            </el-main>
-
-            <el-footer class="footer" v-show="isLoad">
-
-              <h4>Copyright 2021 all rights reserved</h4>
-            </el-footer>
+    <el-footer class="footer" v-show="isLoad">
+      <h4>Copyright 2021 all rights reserved</h4>
+    </el-footer>
   </el-container>
 </template>
 
@@ -45,6 +67,7 @@ import { onMounted, ref, reactive } from 'vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import axios from 'axios'
 import { useRoute } from 'vue-router'
+import qs from 'qs'
 export default {
   name: 'Counter',
   setup () {
@@ -54,7 +77,7 @@ export default {
       init()
       setInterval(() => {
         init()
-      }, 10000)
+      }, 1000)
     })
 
     const copyUrl = () => {
@@ -71,10 +94,14 @@ export default {
     const init = () => {
       axios.get(`/api/GetCounter/${route.params.id}`)
         .then((res) => {
-          isLoad.value = true
-          PageDetail.data = res.data.result.counters
+          if (res.data.status) {
+            isLoad.value = true
+            PageDetail.data = res.data.result.counters
+          } else {
+            console.log(res.data.error_msg)
+          }
         })
-        .catch((error) => { console.error(error) })
+        .catch((error) => { console.log(error.data.error_msg) })
     }
 
     const add = () => {
@@ -83,7 +110,7 @@ export default {
       }
       axios.post(`/api/Add/${route.params.id}`)
         .then((res) => {
-          if (PageDetail.data.count < PageDetail.data.limit) {
+          if (res.data.status && PageDetail.data.count < PageDetail.data.limit) {
             Swal.fire({
               toast: true,
               position: 'top-end',
@@ -99,27 +126,52 @@ export default {
               showConfirmButton: false,
               timer: 2000,
               icon: 'error',
-              title: '超過限制'
+              title: '超過限制',
+              text: res.data.error_msg
             })
           }
         })
-        .catch((error) => { console.error(error) })
+        .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: '新增失敗',
+            text: err.response.data.message
+          })
+        })
     }
 
     const remove = () => {
       PageDetail.data.count--
       axios.post(`/api/Subtract/${route.params.id}`)
         .then((res) => {
+          if (res.data.status) {
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 1000,
+              icon: 'success',
+              title: '減少成功'
+            })
+          } else {
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              icon: 'error',
+              title: '超過限制',
+              text: res.data.error_msg
+            })
+          }
+        })
+        .catch((err) => {
           Swal.fire({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 1000,
-            icon: 'success',
-            title: '減少成功'
+            icon: 'error',
+            title: '新增失敗',
+            text: err.response.data.message
           })
         })
-        .catch((error) => { console.error(error) })
     }
 
     const handPasswordFn = () => {
@@ -134,8 +186,11 @@ export default {
             autocorrect: 'off'
           }
         })
+
         if (password) {
-          axios.post(`/api/Restart/${route.params.id}`, password)
+          axios.post(`/api/Restart/${route.params.id}`, qs.stringify({ password: password }), {
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }
+          })
             .then(res => {
               if (res.data.status) {
                 Swal.fire({
@@ -176,7 +231,7 @@ export default {
 }
 </script>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 * {
   padding: 0;
   margin: 0;
@@ -194,19 +249,19 @@ body {
   justify-content: center;
 }
 
-.el-container{
+.el-container {
   height: 90vh;
 }
-.el-row{
+.el-row {
   height: 60vh;
 }
 
-.el-col{
+.el-col {
   display: flex;
   flex-direction: column;
 }
 
-.btn{
+.btn {
   width: 200px;
 }
 
@@ -220,36 +275,35 @@ body {
 }
 
 .el-button {
-    min-height: 40px;
-    padding: 15px 30px;
-    font-size: 25px;
-    border-radius: 4px;
-    margin-left: 5px;
-    margin-right: 20px;
+  min-height: 40px;
+  padding: 15px 30px;
+  font-size: 25px;
+  border-radius: 4px;
+  margin-left: 5px;
+  margin-right: 20px;
 }
 
-.other-btn{
+.other-btn {
   display: flex;
   flex-direction: column;
 }
-.footer{
+.footer {
   padding-top: 70px;
   padding-bottom: 50px;
 }
 
-.limit{
-  color: #F56C6C;
+.limit {
+  color: #f56c6c;
 }
 
-span{
+span {
   font-size: 80px;
 }
 
 h4 {
-color: #2c3e50;
+  color: #2c3e50;
 }
 .load {
-        width: 100px;
-      }
-
+  width: 100px;
+}
 </style>
