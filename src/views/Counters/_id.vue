@@ -27,9 +27,9 @@
 
             </el-row>
 
-             <div class="box">
-            <el-button >歸零</el-button>
-             <el-button   @click="copyUrl()">copy link</el-button>
+            <div v-show="isLoad" class="box">
+            <el-button @click="handPasswordFn">歸零</el-button>
+             <el-button @click="copyUrl()">複製網址</el-button>
             </div>
             </el-main>
 
@@ -52,10 +52,9 @@ export default {
 
     onMounted(() => {
       init()
-      console.log(route)
       setInterval(() => {
         init()
-      }, 2000)
+      }, 10000)
     })
 
     const copyUrl = () => {
@@ -104,9 +103,7 @@ export default {
             })
           }
         })
-        .catch(() => {
-
-        })
+        .catch((error) => { console.error(error) })
     }
 
     const remove = () => {
@@ -125,23 +122,44 @@ export default {
         .catch((error) => { console.error(error) })
     }
 
-    const dialogVisible = ref(false)
-    const confirm = reactive({
-      password: ''
-    })
-
     const handPasswordFn = () => {
-      axios
-        .post(`/api/Restart/${route.params.id}`, confirm)
-        .then((res) => {
-          console.log(confirm)
-          init()
-          dialogVisible.value = false
+      (async () => {
+        const { value: password } = await Swal.fire({
+          title: '請輸入密碼',
+          input: 'password',
+          inputPlaceholder: '請輸入您的密碼',
+          inputAttributes: {
+            maxlength: 10,
+            autocapitalize: 'off',
+            autocorrect: 'off'
+          }
         })
-        .catch((err) => {
-          dialogVisible.value = true
-          console.log(err)
-        })
+        if (password) {
+          axios.post(`/api/Restart/${route.params.id}`, password)
+            .then(res => {
+              if (res.data.status) {
+                Swal.fire({
+                  icon: 'success',
+                  title: '成功'
+                })
+                init()
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: '失敗',
+                  text: res.data.error_msg
+                })
+              }
+            })
+            .catch(err => {
+              Swal.fire({
+                icon: 'error',
+                title: '失敗',
+                text: err.data.error_msg
+              })
+            })
+        }
+      })()
     }
 
     return {
@@ -149,7 +167,6 @@ export default {
       PageDetail,
       add,
       remove,
-      dialogVisible,
       confirm,
       handPasswordFn,
       copyUrl
