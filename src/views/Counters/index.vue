@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { ref, reactive, getCurrentInstance } from 'vue'
+import { reactive, getCurrentInstance } from 'vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import axios from 'axios'
 import qs from 'qs'
@@ -183,7 +183,7 @@ export default ({
     }
 
     return {
-      ruleForm, submitForm, rules, resetForm, ruleFormRef, timer
+      ruleForm, submitForm, rules, resetForm, timer
     }
   }
 })
