@@ -77,7 +77,7 @@ export default {
       init()
       setInterval(() => {
         init()
-      }, 1000)
+      }, 2000)
     })
 
     const copyUrl = () => {
@@ -106,7 +106,7 @@ export default {
 
     const add = () => {
       if (PageDetail.data.count < PageDetail.data.limit) {
-        PageDetail.data.counter++
+        PageDetail.data.count++
       }
       axios.post(`/api/Add/${route.params.id}`)
         .then((res) => {
