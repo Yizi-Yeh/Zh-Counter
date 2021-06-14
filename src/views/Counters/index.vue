@@ -92,7 +92,7 @@ export default ({
       Limit: ''
     })
 
-    const ruleFormRef = ref(null)
+    // const ruleFormRef = ref(null)
     let timer = null
     const checkName = (rule, value, callback) => {
       if (!value) {
