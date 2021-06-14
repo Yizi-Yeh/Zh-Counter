@@ -22,6 +22,7 @@
           >
             <el-form-item size="large" label="名稱" prop="Name">
               <el-input
+                v-focus
                 placeholder="請輸入名稱"
                 v-model="ruleForm.Name"
               ></el-input>

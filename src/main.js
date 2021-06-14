@@ -10,7 +10,14 @@ import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import router from './router'
 
-createApp(App).use(router)
+const app = createApp(App)
+app.directive('focus', {
+  mounted (el) {
+    el.children[0].focus()
+    console.log(el)
+  }
+})
+  .use(router)
   .use(VueSweetalert2)
   .use(ElementPlus)
   .use(VueAxios, axios)
