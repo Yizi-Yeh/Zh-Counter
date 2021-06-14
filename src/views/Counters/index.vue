@@ -73,14 +73,14 @@
 </template>
 
 <script>
-import { reactive, getCurrentInstance } from 'vue'
+import { ref, reactive } from 'vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import axios from 'axios'
 import qs from 'qs'
 import { useRouter } from 'vue-router'
 export default ({
   setup () {
-    const { ctx } = getCurrentInstance()
+    // const { ctx } = getCurrentInstance()
 
     const router = useRouter()
 
@@ -92,7 +92,7 @@ export default ({
       Limit: ''
     })
 
-    // const ruleFormRef = ref(null)
+    const ruleFormRef = ref(null)
     let timer = null
     const checkName = (rule, value, callback) => {
       if (!value) {
@@ -111,7 +111,7 @@ export default ({
         callback(new Error('請輸入密碼'))
       } else {
         if (ruleForm.Password !== '') {
-          ctx.$refs.ruleForm.validateField('ConfirmPassword')
+          ruleForm.validateField('ConfirmPassword')
         }
         callback()
       }
@@ -143,7 +143,7 @@ export default ({
     })
 
     const submitForm = () => {
-      ctx.$refs.ruleFormRef.validate(valid => {
+      ruleFormRef.value.validate(valid => {
         if (!valid) {
           return false
         }
@@ -179,11 +179,11 @@ export default ({
     }
 
     const resetForm = (ruleFormRef) => {
-      ctx.$refs.ruleFormRef.resetFields()
+      ruleFormRef.resetFields()
     }
 
     return {
-      ruleForm, submitForm, rules, resetForm, timer
+      ruleForm, submitForm, rules, resetForm, ruleFormRef, timer
     }
   }
 })
