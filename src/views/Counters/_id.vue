@@ -5,7 +5,7 @@
       <el-row v-show="isLoad">
         <el-col
           :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
+          :lg="{span: 24}"
           :md="{span: 16, offset: 4}"
           :sm="{span: 20, offset: 2}"
           :xs="24"
@@ -16,7 +16,7 @@
 
         <el-col
           :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
+          :lg="{span: 24}"
           :md="{span: 16, offset: 4}"
           :sm="{span: 20, offset: 2}"
           :xs="24"
@@ -26,7 +26,7 @@
 
         <el-col
           :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
+          :lg="{span: 24}"
           :md="{span: 16, offset: 4}"
           :sm="{span: 20, offset: 2}"
           :xs="24"
@@ -36,7 +36,7 @@
 
         <el-col
           :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
+          :lg="{span: 24}"
           :md="{span: 16, offset: 4}"
           :sm="{span: 20, offset: 2}"
           :xs="24"
@@ -253,17 +253,14 @@ body {
 .el-container {
   height: 90vh;
 }
+
 .el-row {
-  height: 60vh;
+  height: 65vh;
 }
 
 .el-col {
   display: flex;
   flex-direction: column;
-}
-
-.btn {
-  width: 200px;
 }
 
 .number {
@@ -284,10 +281,6 @@ body {
   margin-right: 20px;
 }
 
-.other-btn {
-  display: flex;
-  flex-direction: column;
-}
 .footer {
   padding-top: 70px;
   padding-bottom: 50px;

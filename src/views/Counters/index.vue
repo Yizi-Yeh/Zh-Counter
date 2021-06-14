@@ -1,7 +1,7 @@
 <template>
   <el-container>
-    <el-header>新增你的計時器！</el-header>
-    <el-main>
+    <el-header>新增你的計數器！</el-header>
+    <el-main type="flex" justify="center">
       <el-row>
         <el-col
           :xl="{span: 12, offset: 6}"
@@ -9,6 +9,8 @@
           :md="{span: 16, offset: 4}"
           :sm="{span: 20, offset: 2}"
           :xs="24"
+          type="flex"
+          justify="center"
         >
           <el-form
             :model="ruleForm"
@@ -186,24 +188,29 @@ export default ({
 })
 </script>
 
-<style scoped>
+<style style="scss" scoped>
 .el-header,
 .el-footer {
-  background-color: #b3c0d1;
+  background-color: #e4f0e7;
   color: #333;
   text-align: center;
   line-height: 60px;
 }
-
+.el-container {
+  margin-bottom: 40px;
+  height: 90vh;
+}
 .el-main {
-  background-color: #e9eef3;
+  background-color: #fdfaf6;
   color: #333;
   text-align: center;
   line-height: 30px;
 }
-
-.el-container {
-  margin-bottom: 40px;
-  height: 90vh;
+.el-form {
+  padding-top: 100px;
+  padding-bottom: 50px;
+}
+.el-form-item__label {
+  text-align: center !important;
 }
 </style>

@@ -57,14 +57,18 @@
 <style scoped>
 .el-header,
 .el-footer {
-  background-color: #b3c0d1;
+  background-color: #E4F0E7;
   color: #333;
   text-align: center;
   line-height: 60px;
 }
-
+.el-container {
+  margin-bottom: 40px;
+  height: 90vh;
+}
 .el-main {
-  background-color: #e9eef3;
+    background-color: #FDFAF6;
+
   color: #333;
   text-align: center;
   line-height: 30px;
