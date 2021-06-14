@@ -1,7 +1,6 @@
 <template>
   <el-container>
     <el-main>
-      <img v-show="!isLoad" class="load" src="@/assets/load.gif" alt="" />
       <el-row v-show="isLoad">
         <el-col
           :xl="{span: 12, offset: 6}"
@@ -10,8 +9,8 @@
           :sm="{span: 20, offset: 2}"
           :xs="24"
         >
-          <h1>名稱：{{ PageDetail.data.name }}</h1>
-          <h3>描述：{{ PageDetail.data.description }}</h3>
+          <h1 class="title">名稱：{{ PageDetail.data.name }}</h1>
+          <h2 class="sub-title">描述：{{ PageDetail.data.description }}</h2>
         </el-col>
 
         <el-col
@@ -49,7 +48,7 @@
           </div>
         </el-col>
       </el-row>
-
+      <img v-show="!isLoad" class="load" src="@/assets/load.gif" alt="" />
       <div v-show="isLoad" class="box">
         <el-button @click="handPasswordFn">歸零</el-button>
         <el-button @click="copyUrl()">複製網址</el-button>
@@ -92,7 +91,7 @@ export default {
     const isLoad = ref(false)
     const PageDetail = reactive({ data: {} })
     const init = () => {
-      axios.get(`/api/GetCounter/${route.params.id}`)
+      axios.get(`https://happy-counter.herokuapp.com/Counter/GetCounter/${route.params.id}`)
         .then((res) => {
           if (res.data.status) {
             isLoad.value = true
@@ -108,7 +107,7 @@ export default {
       if (PageDetail.data.count < PageDetail.data.limit) {
         PageDetail.data.count++
       }
-      axios.post(`/api/Add/${route.params.id}`)
+      axios.post(`https://happy-counter.herokuapp.com/Counter/Add/${route.params.id}`)
         .then((res) => {
           if (res.data.status && PageDetail.data.count < PageDetail.data.limit) {
             Swal.fire({
@@ -142,7 +141,7 @@ export default {
 
     const remove = () => {
       PageDetail.data.count--
-      axios.post(`/api/Subtract/${route.params.id}`)
+      axios.post(`https://happy-counter.herokuapp.com/Counter/Subtract/${route.params.id}`)
         .then((res) => {
           if (res.data.status) {
             Swal.fire({
@@ -188,7 +187,7 @@ export default {
         })
 
         if (password) {
-          axios.post(`/api/Restart/${route.params.id}`, qs.stringify({ password: password }), {
+          axios.post(`https://happy-counter.herokuapp.com/Counter/Restart/${route.params.id}`, qs.stringify({ password: password }), {
             headers: { 'content-type': 'application/x-www-form-urlencoded' }
           })
             .then(res => {
@@ -290,13 +289,12 @@ body {
   color: #f56c6c;
 }
 
-span {
-  font-size: 80px;
+.title {
+  margin-bottom: 10px;
+}
+.sub-title {
 }
 
-h4 {
-  color: #2c3e50;
-}
 .load {
   width: 100px;
 }
