@@ -123,7 +123,7 @@ export default {
       if (PageDetail.data.count < PageDetail.data.limit) {
         PageDetail.data.count++
       }
-      axios.post(`/api/Add/${route.params.id}`)
+      axios.post(`https://happy-counter.herokuapp.com/Counter/Add/${route.params.id}`)
         .then((res) => {
           if (res.data.status && PageDetail.data.count < PageDetail.data.limit) {
             Swal.fire({
