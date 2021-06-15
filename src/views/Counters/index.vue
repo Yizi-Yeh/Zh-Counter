@@ -148,7 +148,7 @@ export default ({
           return false
         }
       })
-      axios.post('https://happy-counter.herokuapp.com/Counter/Create/', qs.stringify(ruleForm), {
+      axios.post(`${process.env.VUE_APP_API_ENDPOINT}/Create/`, qs.stringify(ruleForm), {
         headers: { 'content-type': 'application/x-www-form-urlencoded' }
       })
         .then(res => {
