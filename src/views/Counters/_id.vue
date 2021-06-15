@@ -9,6 +9,17 @@
           :sm="{span: 20, offset: 2}"
           :xs="24"
         >
+          <h1>{{nowDay}}</h1>
+          <h1>{{nowTime}}</h1>
+        </el-col>
+
+        <el-col
+          :xl="{span: 12, offset: 6}"
+          :lg="{span: 24}"
+          :md="{span: 16, offset: 4}"
+          :sm="{span: 20, offset: 2}"
+          :xs="24"
+        >
           <h1 class="title">名稱：{{ PageDetail.data.name }}</h1>
           <h2 class="sub-title">描述：{{ PageDetail.data.description }}</h2>
         </el-col>
@@ -70,9 +81,13 @@ import qs from 'qs'
 export default {
   name: 'Counter',
   setup () {
+    const nowDay = ref('')
+    const nowTime = ref('')
+
     const route = useRoute()
 
     onMounted(() => {
+      nowTimes()
       init()
       setInterval(() => {
         init()
@@ -217,6 +232,27 @@ export default {
       })()
     }
 
+    // 取得當下時間
+    const timeFormate = (timeStamp) => {
+      const newdate = new Date(timeStamp)
+      const year = newdate.getFullYear()
+      const month = newdate.getMonth() + 1 < 10 ? '0' + (newdate.getMonth() + 1) : newdate.getMonth() + 1
+      const date = newdate.getDate() < 10 ? '0' + newdate.getDate() : newdate.getDate()
+      const hh = newdate.getHours() < 10 ? '0' + newdate.getHours() : newdate.getHours()
+      const mm = newdate.getMinutes() < 10 ? '0' + newdate.getMinutes() : newdate.getMinutes()
+      const ss = newdate.getSeconds() < 10 ? '0' + newdate.getSeconds() : newdate.getSeconds()
+
+      nowTime.value = hh + ':' + mm + ':' + ss
+      nowDay.value = year + '年' + month + '月' + date + '日'
+    }
+
+    const nowTimes = () => {
+      timeFormate(new Date())
+      setInterval(function () {
+        timeFormate(new Date())
+      }, 1000)
+    }
+
     return {
       isLoad,
       PageDetail,
@@ -224,8 +260,11 @@ export default {
       remove,
       confirm,
       handPasswordFn,
-      copyUrl
-
+      copyUrl,
+      nowDay,
+      nowTime,
+      nowTimes,
+      timeFormate
     }
   }
 }
