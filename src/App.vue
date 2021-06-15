@@ -1,11 +1,23 @@
 <template>
-  <div id="nav">
+  <div  id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>|
     <router-link to="/counters">Counters</router-link>
   </div>
   <router-view />
 </template>
+
+<script>
+import { computed } from '@vue/runtime-core'
+import { store } from 'vuex'
+export default {
+  setup () {
+    computed(() => {
+      return store.getters.isLoad
+    })
+  }
+}
+</script>
 
 <style lang="scss">
 #app {

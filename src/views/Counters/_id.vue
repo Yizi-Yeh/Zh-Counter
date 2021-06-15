@@ -91,7 +91,7 @@ export default {
     const isLoad = ref(false)
     const PageDetail = reactive({ data: {} })
     const init = () => {
-      axios.get(`https://happy-counter.herokuapp.com/Counter/GetCounter/${route.params.id}`)
+      axios.get(`/api/GetCounter/${route.params.id}`)
         .then((res) => {
           if (res.data.status) {
             isLoad.value = true
@@ -107,7 +107,7 @@ export default {
       if (PageDetail.data.count < PageDetail.data.limit) {
         PageDetail.data.count++
       }
-      axios.post(`https://happy-counter.herokuapp.com/Counter/Add/${route.params.id}`)
+      axios.post(`/api/Add/${route.params.id}`)
         .then((res) => {
           if (res.data.status && PageDetail.data.count < PageDetail.data.limit) {
             Swal.fire({
@@ -141,7 +141,7 @@ export default {
 
     const remove = () => {
       PageDetail.data.count--
-      axios.post(`https://happy-counter.herokuapp.com/Counter/Subtract/${route.params.id}`)
+      axios.post(`/api/Subtract/${route.params.id}`)
         .then((res) => {
           if (res.data.status) {
             Swal.fire({
@@ -187,7 +187,7 @@ export default {
         })
 
         if (password) {
-          axios.post(`https://happy-counter.herokuapp.com/Counter/Restart/${route.params.id}`, qs.stringify({ password: password }), {
+          axios.post(`/api/Restart/${route.params.id}`, qs.stringify({ password: password }), {
             headers: { 'content-type': 'application/x-www-form-urlencoded' }
           })
             .then(res => {

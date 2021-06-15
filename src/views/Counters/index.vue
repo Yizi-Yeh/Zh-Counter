@@ -73,14 +73,14 @@
 </template>
 
 <script>
-import { ref, reactive, getCurrentInstance } from 'vue'
+import { ref, reactive } from 'vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import axios from 'axios'
 import qs from 'qs'
 import { useRouter } from 'vue-router'
 export default ({
   setup () {
-    const { ctx } = getCurrentInstance()
+    // const { ctx } = getCurrentInstance()
 
     const router = useRouter()
 
@@ -111,7 +111,7 @@ export default ({
         callback(new Error('請輸入密碼'))
       } else {
         if (ruleForm.Password !== '') {
-          ctx.$refs.ruleForm.validateField('ConfirmPassword')
+          ruleForm.validateField('ConfirmPassword')
         }
         callback()
       }
@@ -143,12 +143,12 @@ export default ({
     })
 
     const submitForm = () => {
-      ctx.$refs.ruleFormRef.validate(valid => {
+      ruleFormRef.value.validate(valid => {
         if (!valid) {
           return false
         }
       })
-      axios.post('https://happy-counter.herokuapp.com/Counter/Create/', qs.stringify(ruleForm), {
+      axios.post('/api/Create/', qs.stringify(ruleForm), {
         headers: { 'content-type': 'application/x-www-form-urlencoded' }
       })
         .then(res => {
@@ -179,7 +179,7 @@ export default ({
     }
 
     const resetForm = (ruleFormRef) => {
-      ctx.$refs.ruleFormRef.resetFields()
+      ruleFormRef.resetFields()
     }
 
     return {
