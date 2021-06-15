@@ -2,6 +2,7 @@
   <el-container>
     <el-main>
       <el-row v-show="isLoad">
+
         <el-col
           :xl="{span: 12, offset: 6}"
           :lg="{span: 24}"
@@ -9,8 +10,8 @@
           :sm="{span: 20, offset: 2}"
           :xs="24"
         >
-          <h1>{{nowDay}}</h1>
-          <h1>{{nowTime}}</h1>
+          <h2>{{nowDay}}</h2>
+          <h2>{{nowTime}}</h2>
         </el-col>
 
         <el-col
@@ -21,7 +22,7 @@
           :xs="24"
         >
           <h1 class="title">名稱：{{ PageDetail.data.name }}</h1>
-          <h2 class="sub-title">描述：{{ PageDetail.data.description }}</h2>
+          <h3 class="sub-title">描述：{{ PageDetail.data.description }}</h3>
         </el-col>
 
         <el-col
@@ -106,7 +107,7 @@ export default {
     const isLoad = ref(false)
     const PageDetail = reactive({ data: {} })
     const init = () => {
-      axios.get(`/api/GetCounter/${route.params.id}`)
+      axios.get(`https://happy-counter.herokuapp.com/Counter/GetCounter/${route.params.id}`)
         .then((res) => {
           if (res.data.status) {
             isLoad.value = true
@@ -156,7 +157,7 @@ export default {
 
     const remove = () => {
       PageDetail.data.count--
-      axios.post(`/api/Subtract/${route.params.id}`)
+      axios.post(`https://happy-counter.herokuapp.com/Counter/Subtract/${route.params.id}`)
         .then((res) => {
           if (res.data.status) {
             Swal.fire({
@@ -202,7 +203,7 @@ export default {
         })
 
         if (password) {
-          axios.post(`/api/Restart/${route.params.id}`, qs.stringify({ password: password }), {
+          axios.post(`https://happy-counter.herokuapp.com/Counter/Restart/${route.params.id}`, qs.stringify({ password: password }), {
             headers: { 'content-type': 'application/x-www-form-urlencoded' }
           })
             .then(res => {

@@ -60,9 +60,9 @@
               ></el-input>
             </el-form-item>
 
-            <el-form-item>
+            <el-form-item class="col-btn">
               <el-button type="danger" @click="submitForm">送出</el-button>
-              <el-button @click="resetForm('ruleFormRef')">重置</el-button>
+              <el-button @click="resetForm('ruleForm')">重置</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { ref, reactive } from 'vue'
+import { ref, reactive, nextTick } from 'vue'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import axios from 'axios'
 import qs from 'qs'
@@ -148,7 +148,7 @@ export default ({
           return false
         }
       })
-      axios.post('/api/Create/', qs.stringify(ruleForm), {
+      axios.post('https://happy-counter.herokuapp.com/Counter/Create/', qs.stringify(ruleForm), {
         headers: { 'content-type': 'application/x-www-form-urlencoded' }
       })
         .then(res => {
@@ -179,7 +179,13 @@ export default ({
     }
 
     const resetForm = (ruleFormRef) => {
-      ruleFormRef.resetFields()
+      if (ruleFormRef !== undefined) {
+        ruleFormRef.value.resetFields()
+      } else {
+        nextTick(() => {
+          ruleFormRef.value.resetFields()
+        })
+      }
     }
 
     return {
@@ -207,10 +213,12 @@ export default ({
   text-align: center;
   line-height: 30px;
 }
+
 .el-form {
   padding-top: 100px;
   padding-bottom: 50px;
 }
+
 .el-form-item__label {
   text-align: center !important;
 }
