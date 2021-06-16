@@ -1,21 +1,30 @@
 import { createStore } from 'vuex'
+import { apiGetCounterRequest } from '../api'
 
 export default createStore({
   state: {
-    isLoad: false
+    counterArr: []
   },
   mutations: {
-    handisLoad (state, payload) {
-      state.isLoad = payload
+    init (state, payload) {
+      state.counterArr = payload
     }
   },
   actions: {
+    // action打完 API 後 commit 到 mutation
+    handInit ({ commit }) {
+      const res = apiGetCounterRequest()
+      return res.then(res => {
+        commit('init', res.data.result.counters)
+      })
+    }
   },
   modules: {
+
   },
   getters: {
-    isLoad (state) {
-      return state.isLoad
+    counterArr (state) {
+      return state.counterArr
     }
   }
 })
