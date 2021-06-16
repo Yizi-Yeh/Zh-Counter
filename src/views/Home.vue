@@ -6,9 +6,9 @@
         <a v-for="item in counterArr" :key="item.id" @click="goToCourses(item.id)"   class="card">
           <img src="https://picsum.photos/125/70/?random=idx" />
           <div class="contnet">
-            <h4>{{ item.name }}</h4>
+            <h4>名稱：{{ item.name }}</h4>
             <div class="content-box">
-              <h5>{{item.description}}</h5>
+              <h5>描述：{{item.description}}</h5>
             </div>
           </div>
         </a>

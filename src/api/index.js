@@ -1,3 +1,3 @@
-import { getCounterRequset } from './counterRequest.js'
+import { getAllCounterRequset } from './counterRequest.js'
 
-export const apiGetCounterRequest = getCounterRequset
+export const apiGetAllCounterRequest = getAllCounterRequset

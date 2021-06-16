@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { apiGetCounterRequest } from '../api'
+import { apiGetAllCounterRequest } from '../api'
 
 export default createStore({
   state: {
@@ -12,11 +12,13 @@ export default createStore({
   },
   actions: {
     // action打完 API 後 commit 到 mutation
-    handInit ({ commit }) {
-      const res = apiGetCounterRequest()
-      return res.then(res => {
+    async handInit ({ commit }) {
+      try {
+        const res = await apiGetAllCounterRequest()
         commit('init', res.data.result.counters)
-      })
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   modules: {
