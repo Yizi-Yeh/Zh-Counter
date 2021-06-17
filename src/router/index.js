@@ -21,6 +21,11 @@ const routes = [
     path: '/counters/:id',
     name: 'Counters_id',
     component: () => import('../views/Counters/_id.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import('../views/Admin.vue')
   }
 ]
 

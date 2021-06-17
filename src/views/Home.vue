@@ -3,7 +3,12 @@
     <el-header> <h4>ALL Counters</h4></el-header>
     <el-main>
       <div id="counters">
-        <a v-for="item in counterArr" :key="item.id" @click="goToCourses(item.id)"   class="card">
+        <a
+          v-for="item in counterArr"
+          :key="item.id"
+          @click="goToCourses(item.id)"
+          class="card"
+        >
           <img src="https://picsum.photos/125/70/?random=idx" />
           <div class="contnet">
             <h4>名稱：{{ item.name }}</h4>
@@ -37,13 +42,13 @@ export default {
 
     const counterArr = computed(() => store.getters.counterArr)
 
-    const goToCourses = (id) => {
+    const goToCounter = (id) => {
       router.push(`/counters/${id}`)
     }
 
     return {
       counterArr,
-      goToCourses
+      goToCounter
     }
   }
 }
@@ -73,6 +78,8 @@ export default {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  height: 55vh;
+  overflow: hidden;
 }
 
 a.card {

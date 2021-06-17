@@ -16,8 +16,8 @@ export default createStore({
       try {
         const res = await apiGetAllCounterRequest()
         commit('init', res.data.result.counters)
-      } catch (error) {
-        console.log(error)
+      } catch (err) {
+        console.log(err.response.data.message)
       }
     }
   },

@@ -59,12 +59,11 @@
                 v-model.number="ruleForm.Limit"
               ></el-input>
             </el-form-item>
-
-            <el-form-item class="col-btn">
-              <el-button type="danger" @click="submitForm">送出</el-button>
-              <el-button @click="resetForm('ruleForm')">重置</el-button>
-            </el-form-item>
           </el-form>
+          <el-form-item class="col-btn">
+            <el-button type="danger" @click="submitForm">送出</el-button>
+            <el-button @click="resetForm('ruleForm')">重置</el-button>
+          </el-form-item>
         </el-col>
       </el-row>
     </el-main>
@@ -216,7 +215,7 @@ export default ({
 
 .el-form {
   padding-top: 100px;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 }
 
 .el-form-item__label {

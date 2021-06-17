@@ -4,7 +4,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import store from './store'
 import ElementPlus from 'element-plus'
-import 'element-plus/lib/theme-chalk/index.css'
+import './scss/theme-chalk/index.css'
 
 import VueSweetalert2 from 'vue-sweetalert2'
 import 'sweetalert2/dist/sweetalert2.min.css'
