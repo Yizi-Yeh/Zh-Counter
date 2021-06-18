@@ -36,7 +36,7 @@
           :xl="{ span: 12, offset: 6 }"
           :lg="{ span: 12, offset: 6 }"
           :md="{ span: 16, offset: 4 }"
-          :sm="{ span: 20, offset: 2 }"
+          :sm="{ span: 16, offset: 2 }"
           :xs="24"
         >
         </el-col>
