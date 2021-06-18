@@ -1,54 +1,58 @@
 <template>
   <el-container>
-    <el-header>Zhudong Township</el-header>
+    <el-header>
+      <h4>About Counters</h4>
+    </el-header>
     <el-main>
       <el-row>
         <el-col
-          :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
-          :md="{span: 16, offset: 4}"
-          :sm="{span: 20, offset: 2}"
+          :xl="{ span: 12, offset: 6 }"
+          :lg="{ span: 12, offset: 6 }"
+          :md="{ span: 16, offset: 4 }"
+          :sm="{ span: 20, offset: 2 }"
           :xs="24"
         >
-          <img src="https://picsum.photos/345/230/?random=1" alt="" />
+          <br />
+          <h4>因應疫情爆發需管制竹東市場的人流，</h4>
+          <h4>而製作了此計數器。</h4>
+          <br />
+          <h1>Service</h1>
+                    <br />
+        </el-col>
+
+        <el-col
+          :xl="{ span: 12, offset: 6 }"
+          :lg="{ span: 12, offset: 6 }"
+          :md="{ span: 16, offset: 4 }"
+          :sm="{ span: 20, offset: 2 }"
+          :xs="24"
+        >
+          <h4>．創建各區計數器</h4>
+          <h4>．輸入密碼計數歸零</h4>
+          <h4>．分享連結鈕</h4>
+          <br />
         </el-col>
         <el-col
-          :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
-          :md="{span: 16, offset: 4}"
-          :sm="{span: 20, offset: 2}"
+          :xl="{ span: 12, offset: 6 }"
+          :lg="{ span: 12, offset: 6 }"
+          :md="{ span: 16, offset: 4 }"
+          :sm="{ span: 20, offset: 2 }"
           :xs="24"
         >
-          <h4>zhug dungˋ zhinˊ</h4>
-          <p>
-            竹東鎮（臺灣客家語海陸腔：zhug dungˋ
-            zhinˊ），舊稱「樹杞林」，位於臺灣新竹縣中心，鎮內人口約9.7萬人，是新竹縣人口僅次於竹北市的第二大行政區，也是臺灣人口第二大鎮[註
-            1][1]，結構上以清朝時來自廣東移民客家後裔族群為主，亦有多數的原住民泰雅族、賽夏族居住。
-          </p>
-        </el-col>
-        <br />
-        <br />
-        <br />
-        <el-col
-          :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
-          :md="{span: 16, offset: 4}"
-          :sm="{span: 20, offset: 2}"
-          :xs="24"
-        >
-          <img src="https://picsum.photos/345/230/?random=2" alt="" />
         </el-col>
         <el-col
-          :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
-          :md="{span: 16, offset: 4}"
-          :sm="{span: 20, offset: 2}"
+          :xl="{ span: 12, offset: 6 }"
+          :lg="{ span: 12, offset: 6 }"
+          :md="{ span: 16, offset: 4 }"
+          :sm="{ span: 20, offset: 2 }"
           :xs="24"
         >
-          <h4>zhug dungˋ zhinˊ</h4>
-          <p>
-            竹東鎮在漢人移民未開發前，是泰雅族、賽夏族以及其他平埔族人的聚集地、狩獵地。早期以製造樟腦聞名，其後石油的鑽探、水泥及玻璃工業的設廠及林場集散場的拓展下，成為新竹縣溪南地區的工商重鎮，並曾與東勢、羅東共稱為臺灣三大林業集散地。隨著1973年工業技術研究院設置於頭重里，以及1980年新竹科學園區設置於西鄰的新竹市東區之後，竹東鎮已逐漸轉型為高科技研發中心。
-          </p>
+          <h1>Contact</h1>
+          <br />
+          <h4>
+            If you have any question about us,<br />Don`t hestitate to contact
+            us !
+          </h4>
         </el-col>
       </el-row>
     </el-main>

@@ -4513,7 +4513,7 @@
   cursor: text;
 }
 .el-form--label-left .el-form-item__label {
-  text-align: left;
+  text-align: center;
 }
 .el-form--label-top .el-form-item__label {
   float: none;
@@ -4580,7 +4580,7 @@
   float: none;
 }
 .el-form-item__label {
-  text-align: right;
+  text-align: center;
   vertical-align: middle;
   float: left;
   font-size: 14px;

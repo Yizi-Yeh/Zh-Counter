@@ -4,10 +4,10 @@
     <el-main type="flex" justify="center">
       <el-row>
         <el-col
-          :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
-          :md="{span: 16, offset: 4}"
-          :sm="{span: 20, offset: 2}"
+          :xl="{ span: 12, offset: 6 }"
+          :lg="{ span: 12, offset: 6 }"
+          :md="{ span: 16, offset: 4 }"
+          :sm="{ span: 20, offset: 2 }"
           :xs="24"
           type="flex"
           justify="center"
@@ -77,7 +77,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import axios from 'axios'
 import qs from 'qs'
 import { useRouter } from 'vue-router'
-export default ({
+export default {
   setup () {
     // const { ctx } = getCurrentInstance()
 
@@ -127,30 +127,29 @@ export default ({
     }
 
     const rules = reactive({
-      Password: [
-        { required: true, validator: validatePass, trigger: 'blur' }
-      ],
+      Password: [{ required: true, validator: validatePass, trigger: 'blur' }],
       ConfirmPassword: [
         { required: true, validator: validatePass2, trigger: 'blur' }
       ],
-      Name: [
-        { required: true, validator: checkName, trigger: 'blur' }
-      ],
-      Limit: [
-        { required: true, validator: checkLimit, trigger: 'blur' }
-      ]
+      Name: [{ required: true, validator: checkName, trigger: 'blur' }],
+      Limit: [{ required: true, validator: checkLimit, trigger: 'blur' }]
     })
 
     const submitForm = () => {
-      ruleFormRef.value.validate(valid => {
+      ruleFormRef.value.validate((valid) => {
         if (!valid) {
           return false
         }
       })
-      axios.post(`${process.env.VUE_APP_API_ENDPOINT}/Create/`, qs.stringify(ruleForm), {
-        headers: { 'content-type': 'application/x-www-form-urlencoded' }
-      })
-        .then(res => {
+      axios
+        .post(
+          `${process.env.VUE_APP_API_ENDPOINT}/Create/`,
+          qs.stringify(ruleForm),
+          {
+            headers: { 'content-type': 'application/x-www-form-urlencoded' }
+          }
+        )
+        .then((res) => {
           if (res.data.status) {
             Swal.fire({
               icon: 'success',
@@ -168,7 +167,7 @@ export default ({
             })
           }
         })
-        .catch(err => {
+        .catch((err) => {
           Swal.fire({
             icon: 'error',
             title: '新增失敗',
@@ -188,10 +187,15 @@ export default ({
     }
 
     return {
-      ruleForm, submitForm, rules, resetForm, ruleFormRef, timer
+      ruleForm,
+      submitForm,
+      rules,
+      resetForm,
+      ruleFormRef,
+      timer
     }
   }
-})
+}
 </script>
 
 <style style="scss" scoped>

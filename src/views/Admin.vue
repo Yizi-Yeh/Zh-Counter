@@ -4,24 +4,31 @@
     <el-main>
       <el-row>
         <el-col
-          :xl="{span: 12, offset: 6}"
-          :lg="{span: 12, offset: 6}"
-          :md="{span: 16, offset: 4}"
-          :sm="{span: 20, offset: 2}"
+          :xl="{ span: 12, offset: 6 }"
+          :lg="{ span: 12, offset: 6 }"
+          :md="{ span: 16, offset: 4 }"
+          :sm="{ span: 20, offset: 2 }"
           :xs="24"
         >
           <el-table
-            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+            :data="
+              tableData.filter(
+                (data) =>
+                  !search ||
+                  data.name.toLowerCase().includes(search.toLowerCase())
+              )
+            "
             style="width: 100%"
           >
-            <el-table-column label="Date" prop="date"> </el-table-column>
             <el-table-column label="Name" prop="name"> </el-table-column>
+            <el-table-column label="Dedcription" prop="description">
+            </el-table-column>
             <el-table-column align="right">
               <template #header>
                 <el-input
                   v-model="search"
                   size="mini"
-                  placeholder="输入关键字搜索"
+                  placeholder="請輸入關鍵字"
                 />
               </template>
               <template #default="scope">
@@ -47,35 +54,49 @@
 </template>
 
 <script>
+import { reactive, ref } from '@vue/reactivity'
+import { onMounted } from '@vue/runtime-core'
+import { useStore } from 'vuex'
+
 export default {
-  data () {
-    return {
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      }],
-      search: ''
+  setup () {
+    const store = useStore()
+    const tableData = reactive([
+      {
+        name: '',
+        description: ''
+      }
+    ])
+    const init = () => {
+      store.dispatch('handInit').then(res => {
+        const resArr = res.data.result.counters
+        resArr.map((item) => {
+          const arr = []
+          arr.push(item.name)
+          console.log(arr)
+        })
+      })
     }
-  },
-  methods: {
-    handleEdit (index, row) {
+
+    onMounted(() => {
+      init()
+    })
+
+    const search = ref('')
+
+    const handleEdit = (index, row) => {
       console.log(index, row)
-    },
-    handleDelete (index, row) {
+    }
+
+    const handleDelete = (index, row) => {
       console.log(index, row)
+    }
+
+    return {
+      tableData,
+      search,
+      handleEdit,
+      handleDelete
     }
   }
 }
