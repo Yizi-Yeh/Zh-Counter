@@ -1,3 +1,5 @@
-- api
-  - Add: https://happy-counter.herokuapp.com/Counter/Add/
-  - Remove: https://happy-counter.herokuapp.com/Counter/Subtract/
+# 使用技術
+  - Vue 3 - Vue.js
+  - Vue CLI
+  - Element
+  - Node.js
