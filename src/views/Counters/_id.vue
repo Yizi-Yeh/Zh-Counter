@@ -107,7 +107,7 @@ export default {
     const isLoad = ref(false)
     const PageDetail = reactive({ data: {} })
     const init = () => {
-      axios.get(`api/GetCounter/${route.params.id}`)
+      axios.get(`${process.env.VUE_APP_API_ENDPOINT}/GetCounter/${route.params.id}`)
         .then((res) => {
           if (res.data.status) {
             isLoad.value = true
@@ -123,7 +123,7 @@ export default {
       if (PageDetail.data.count < PageDetail.data.limit) {
         PageDetail.data.count++
       }
-      axios.post(`/api/Add/${route.params.id}`)
+      axios.post(`${process.env.VUE_APP_API_ENDPOINT}/Add/${route.params.id}`)
         .then((res) => {
           if (res.data.status && PageDetail.data.count < PageDetail.data.limit) {
             Swal.fire({
@@ -157,7 +157,7 @@ export default {
 
     const remove = () => {
       PageDetail.data.count--
-      axios.post(`api/Subtract/${route.params.id}`)
+      axios.post(`${process.env.VUE_APP_API_ENDPOINT}/Subtract/${route.params.id}`)
         .then((res) => {
           if (res.data.status) {
             Swal.fire({
@@ -203,7 +203,7 @@ export default {
         })
 
         if (password) {
-          axios.post(`/api/Restart/${route.params.id}`, qs.stringify({ password: password }), {
+          axios.post(`${process.env.VUE_APP_API_ENDPOINT}/Restart/${route.params.id}`, qs.stringify({ password: password }), {
             headers: { 'content-type': 'application/x-www-form-urlencoded' }
           })
             .then(res => {
@@ -331,8 +331,6 @@ body {
 
 .title {
   margin-bottom: 10px;
-}
-.sub-title {
 }
 
 .load {
